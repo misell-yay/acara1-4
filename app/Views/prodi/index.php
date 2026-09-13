@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Daftar Program Studi</h1>
+    <h1>Daftar Program Studi Akademik</h1>
+    <h2>Teks Contoh</h2>
     <a href="/si-akademik/public/prodi/create" class="btn btn-primary">Tambah Prodi</a>
 </div>
 
