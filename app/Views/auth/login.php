@@ -2,7 +2,7 @@
     <div class="col-md-5">
         <div class="card shadow-sm border-0 bg-light">
             <div class="card-body p-5">
-                <h3 class="text-center mb-4">Login Area</h3>
+                <h3 class="text-center mb-4">Area Login</h3>
                 <form action="/si-akademik/public/login" method="POST">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
