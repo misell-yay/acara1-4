@@ -1,24 +1,29 @@
 <?php
-require_once __DIR__ . '/../Models/Prodi.php';
-class ProdiController {
-    private $model;
-    public function __construct() {
-        $this->model = new Prodi();
+require_once __DIR__ . '/../Core/Controller.php';
+require_once __DIR__ . '/../Repositories/ProdiRepository.php';
+
+class ProdiController extends Controller {
+    private $repository;
+
+    public function __construct(ProdiRepository $repository) {
+        $this->repository = $repository;
     }
+
     public function index() {
-        $data_prodi = $this->model->all();
-        $contentView = __DIR__ . '/../Views/prodi/index.php';
-        require_once __DIR__ . '/../Views/layouts/main.php';
+        $data_prodi = $this->repository->all();
+        $this->view('prodi/index', ['data_prodi' => $data_prodi]);
     }
+
     public function create() {
-        $contentView = __DIR__ . '/../Views/prodi/create.php';
-        require_once __DIR__ . '/../Views/layouts/main.php';
+        $this->view('prodi/create');
     }
-   public function store() {
+
+    public function store() {
         $data = [
             'kode' => $_POST['kode'] ?? '',
             'nama' => $_POST['nama'] ?? ''
         ];
+
         if (empty($data['kode']) || empty($data['nama'])) {
             echo "<script>
                     alert('Data tidak boleh kosong! Pastikan form terisi dengan benar.');
@@ -26,15 +31,37 @@ class ProdiController {
                   </script>";
             exit();
         }
-        $this->model->create($data); 
+
+        $this->repository->create($data); 
         $_SESSION['flash_message'] = "Data Program Studi berhasil ditambahkan!";
-        header("Location: /si-akademik/public/prodi");
-        exit();
+        $this->redirect('/prodi');
     }
+
+    public function edit($id) {
+        $prodi = $this->repository->find($id);
+        $this->view('prodi/edit', ['prodi' => $prodi]);
+    }
+
+    public function update($id) {
+        $data = [
+            'kode' => $_POST['kode'] ?? '',
+            'nama' => $_POST['nama'] ?? ''
+        ];
+
+        if (empty($data['kode']) || empty($data['nama'])) {
+            $_SESSION['flash_message'] = "Gagal: Data tidak boleh kosong!";
+            $this->redirect('/si-akademik/public/prodi/' . $id . '/edit');
+            return;
+        }
+
+        $this->repository->update($id, $data);
+        $_SESSION['flash_message'] = "Data Program Studi berhasil diubah!";
+        $this->redirect('/prodi');
+    }
+
     public function delete($id) {
-        $this->model->delete($id);
+        $this->repository->delete($id);
         $_SESSION['flash_message'] = "Data Program Studi berhasil dihapus!";
-        header("Location: /si-akademik/public/prodi");
-        exit();
+        $this->redirect('/prodi');
     }
 }

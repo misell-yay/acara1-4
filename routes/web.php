@@ -10,10 +10,12 @@ return [
         '/mahasiswa'            => ['MahasiswaController', 'index', 'AuthMiddleware'], 
         '/mahasiswa/create'     => ['MahasiswaController', 'create', 'AuthMiddleware'], 
         '/mahasiswa/([0-9]+)'   => ['MahasiswaController', 'show', 'AuthMiddleware'], 
-        
+        '/mahasiswa/([0-9]+)/edit'  => ['MahasiswaController', 'edit', 'AuthMiddleware'],
+
         // Rute Prodi
         '/prodi'                => ['ProdiController', 'index', 'AuthMiddleware'], 
         '/prodi/create'         => ['ProdiController', 'create', 'AuthMiddleware'],
+        '/prodi/([0-9]+)/edit'  => ['ProdiController', 'edit', 'AuthMiddleware'],
 
         '/matakuliah'                => ['MatakuliahController', 'index', 'AuthMiddleware'],
         '/matakuliah/create'         => ['MatakuliahController', 'create', 'AuthMiddleware'],
@@ -26,10 +28,12 @@ return [
     'POST' => [ 
         // Rute Proses Mahasiswa
         '/mahasiswa'                 => ['MahasiswaController', 'store', 'AuthMiddleware'],
+        '/mahasiswa/([0-9]+)/update'    => ['MahasiswaController', 'update', 'AuthMiddleware'],
         '/mahasiswa/([0-9]+)/delete' => ['MahasiswaController', 'delete', 'AuthMiddleware'],
         
         // Rute Proses Prodi
         '/prodi'                     => ['ProdiController', 'store', 'AuthMiddleware'],
+        '/prodi/([0-9]+)/update'    => ['ProdiController', 'update', 'AuthMiddleware'],
         '/prodi/([0-9]+)/delete'     => ['ProdiController', 'delete', 'AuthMiddleware'],
 
         '/matakuliah'                    => ['MatakuliahController', 'store', 'AuthMiddleware'],

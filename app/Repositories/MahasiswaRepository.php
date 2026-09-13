@@ -41,4 +41,23 @@ class MahasiswaRepository {
         $stmt->execute([$term, $term]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function find($id) {
+        $query = "SELECT * FROM mahasiswa WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update($id, $data) {
+        $query = "UPDATE mahasiswa SET nim = ?, nama = ?, prodi_id = ?, angkatan = ?, status = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([
+            $data['nim'],
+            $data['nama'],
+            $data['prodi_id'],
+            $data['angkatan'],
+            $data['status'],
+            $id
+        ]);
+    }
 }

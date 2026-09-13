@@ -8,6 +8,7 @@ session_start();
 $routes = require_once __DIR__ . '/../routes/web.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Repositories/MahasiswaRepository.php';
+require_once __DIR__ . '/../app/Repositories/ProdiRepository.php';
 require_once __DIR__ . '/../app/Controllers/MahasiswaController.php';
 require_once __DIR__ . '/../app/Controllers/ProdiController.php';
 require_once __DIR__ . '/../app/Controllers/MatakuliahController.php';
@@ -58,6 +59,9 @@ if ($handler) {
     if ($controllerName === 'MahasiswaController') {
         $mahasiswaRepo = new MahasiswaRepository($dbConnection);
         $controller = new MahasiswaController($mahasiswaRepo);
+    } elseif ($controllerName === 'ProdiController') {
+        $prodiRepo = new ProdiRepository($dbConnection);
+        $controller = new ProdiController($prodiRepo);
     } else {
         if (class_exists($controllerName)) {
             $controller = new $controllerName();
